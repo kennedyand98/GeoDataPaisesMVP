@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import java.util.ArrayList;
@@ -13,7 +12,7 @@ import java.util.ArrayList;
 public class ListaPaisesActivity extends Activity {
     public static final String PAIS = "br.usjt.desmob.geodata.pais";
     Activity atividade;
-    ArrayList<Pais> paises;
+    Pais[] paises;
     ArrayList<String> nomes;
 
     @Override
@@ -27,8 +26,7 @@ public class ListaPaisesActivity extends Activity {
         nomes = Data.listarNomes(paises);
 
         ListView listView = (ListView) findViewById(R.id.lista_paises);
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
-                android.R.layout.simple_list_item_1, nomes);
+        PaisAdapter adapter = new PaisAdapter(paises, this);
         listView.setAdapter(adapter);
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -39,7 +37,7 @@ public class ListaPaisesActivity extends Activity {
 
                 // manda para a tela de detalhe
                 Intent intent = new Intent(atividade, DetalhePaisActivity.class);
-                intent.putExtra(PAIS, paises.get(position));
+                intent.putExtra(PAIS, paises[position]);
 
                 startActivity(intent);
 

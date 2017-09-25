@@ -9,14 +9,14 @@ import java.util.Arrays;
 
 public class Data {
 
-    public static ArrayList<String> listarNomes(ArrayList<Pais> paises){
+    public static ArrayList<String> listarNomes(Pais[] paises){
         ArrayList<String> nomes = new ArrayList<>();
         for (Pais pais : paises) {
             nomes.add(pais.getNome());
         }
         return nomes;
     }
-    public static ArrayList<Pais> listarPaises(String continente) {
+    public static Pais[] listarPaises(String continente) {
         Pais[] lista;
         ArrayList<Pais> paises = new ArrayList<>();
         //carrega somente os paises da regiao escolhida
@@ -30,12 +30,8 @@ public class Data {
         //ordena baseado no compareTo sobrescrito na classe Pais
         //para funcionar, a classe pais precisa implementar a interface Comparable
         Arrays.sort(lista);
-        //transforma de novo em ArrayList
-        paises = new ArrayList<>();
-        for(int i = 0; i < lista.length; i++) {
-            paises.add(lista[i]);
-        }
-        return paises;
+
+        return lista;
     }
 
     private static ArrayList<Pais> todosPaises() {
@@ -190,7 +186,7 @@ public class Data {
         pais.setDemonimo("American Samoan");
         pais.setPopulacao(57100);
         pais.setArea(199);
-        pais.setBandeira("https://restcountries.eu/data/asm.svg");
+        pais.setBandeira("afg.svg");
         pais.setGini(0.00);
         idiomas = new ArrayList<>();
         idiomas.add("English");
