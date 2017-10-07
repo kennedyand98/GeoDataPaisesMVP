@@ -72,7 +72,6 @@ public class PaisAdapter extends BaseAdapter implements SectionIndexer {
         if(drawable == null){
             drawable = activity.getDrawable(bandeira);
         }
-        System.out.println(paises[position].getNome());
         viewHolder.getBandeira().setImageDrawable(drawable);
 
         return view;

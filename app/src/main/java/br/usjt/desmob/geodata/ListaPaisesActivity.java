@@ -21,8 +21,8 @@ public class ListaPaisesActivity extends Activity {
         setContentView(R.layout.activity_lista_paises);
         atividade = this;
         Intent intent = getIntent();
-        String continente = intent.getStringExtra(MainActivity.CHAVE);
-        paises = Data.listarPaises(continente);
+
+        paises = (Pais[]) intent.getSerializableExtra(MainActivity.PAISES);
         nomes = Data.listarNomes(paises);
 
         ListView listView = (ListView) findViewById(R.id.lista_paises);

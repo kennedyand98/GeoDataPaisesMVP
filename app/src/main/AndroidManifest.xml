@@ -19,5 +19,6 @@
         <activity android:name=".ListaPaisesActivity" />
         <activity android:name=".DetalhePaisActivity" />
     </application>
+    <uses-permission android:name="android.permission.INTERNET"/>
 
 </manifest>
