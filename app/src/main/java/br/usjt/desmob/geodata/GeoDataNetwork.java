@@ -1,5 +1,8 @@
 package br.usjt.desmob.geodata;
 
+import android.content.Context;
+import android.net.ConnectivityManager;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -22,10 +25,11 @@ public class GeoDataNetwork {
         ArrayList<Pais> paises = new ArrayList<>();
 
         Request request = new Request.Builder()
-                .url(url)
+                .url(url+regiao)
                 .build();
 
         Response response = client.newCall(request).execute();
+
         String resultado = response.body().string();
 
         try {
@@ -52,5 +56,12 @@ public class GeoDataNetwork {
         }
 
         return paises.toArray(new Pais[0]);
+    }
+
+    public static boolean isConnected(Context context){
+        ConnectivityManager connectivityManager = (ConnectivityManager)
+                context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        return connectivityManager.getActiveNetworkInfo() != null &&
+                connectivityManager.getActiveNetworkInfo().isConnected();
     }
 }

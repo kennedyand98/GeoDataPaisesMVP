@@ -7,13 +7,11 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
-import java.util.ArrayList;
-
 public class ListaPaisesActivity extends Activity {
     public static final String PAIS = "br.usjt.desmob.geodata.pais";
     Activity atividade;
     Pais[] paises;
-    ArrayList<String> nomes;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,7 +21,6 @@ public class ListaPaisesActivity extends Activity {
         Intent intent = getIntent();
 
         paises = (Pais[]) intent.getSerializableExtra(MainActivity.PAISES);
-        nomes = Data.listarNomes(paises);
 
         ListView listView = (ListView) findViewById(R.id.lista_paises);
         PaisAdapter adapter = new PaisAdapter(paises, this);
