@@ -1,7 +1,9 @@
 package br.usjt.desmob.geodata;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -19,6 +21,7 @@ public class MainActivity extends Activity {
     Pais[] paises;
     Intent intent;
     ProgressBar timer;
+    Context contexto;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,6 +31,7 @@ public class MainActivity extends Activity {
         spinnerContinente.setOnItemSelectedListener(new RegiaoSelecionada());
         timer = (ProgressBar)findViewById(R.id.timer);
         timer.setVisibility(View.INVISIBLE);
+        contexto = this;
     }
 
     public void listarPaises(View view) {
@@ -40,6 +44,9 @@ public class MainActivity extends Activity {
                         public void run() {
                             try {
                                 paises = GeoDataNetwork.buscarPaises(URL, continente);
+                                //insere no banco o que conseguiu
+                                PaisesDb db = new PaisesDb(contexto);
+                                db.inserePaises(paises);
                                 runOnUiThread(new Runnable() {
                                                   @Override
                                                   public void run() {
@@ -55,7 +62,9 @@ public class MainActivity extends Activity {
                         }
                     }).start();
         } else {
-            Toast.makeText(this, "Rede inativa.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Rede inativa. Usando armazenamento local.",
+                    Toast.LENGTH_SHORT).show();
+            new CarregaPaisesDoBanco().execute("pais");
         }
     }
 
@@ -73,6 +82,21 @@ public class MainActivity extends Activity {
         @Override
         public void onNothingSelected(AdapterView<?> parent) {
 
+        }
+    }
+
+    private class CarregaPaisesDoBanco extends AsyncTask<String, Void, Pais[]>{
+
+        @Override
+        protected Pais[] doInBackground(String... params) {
+            PaisesDb db = new PaisesDb(contexto);
+            Pais[] paises = db.selecionaPaises();
+            return paises;
+        }
+
+        public void onPostExecute(Pais[] paises){
+            intent.putExtra(PAISES, paises);
+            startActivity(intent);
         }
     }
 }
