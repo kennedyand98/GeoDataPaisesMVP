@@ -65,9 +65,7 @@ public class PaisAdapter extends BaseAdapter implements SectionIndexer {
 
         ViewHolder viewHolder = (ViewHolder)view.getTag();
         viewHolder.getNome().setText(paises[position].getNome());
-        viewHolder.getDetalhe().setText(String.format(
-                activity.getResources().getString(R.string.lbl_regiao)+" %s - "+
-                        activity.getResources().getString(R.string.lbl_capital)+" %s",
+        viewHolder.getDetalhe().setText(String.format("região: %s - capital: %s",
                 paises[position].getRegiao(),
                 paises[position].getCapital()));
         Drawable drawable = Util.getDrawable(activity, paises[position].getCodigo3().toLowerCase());
