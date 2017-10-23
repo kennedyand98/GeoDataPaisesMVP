@@ -72,7 +72,9 @@ public class MainActivity extends Activity {
         @Override
         public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
             continente = (String) parent.getItemAtPosition(position);
-            if (continente.equals("Todos")) {
+            String[] continentes = getApplicationContext().getResources().getStringArray(
+                    R.array.continentes);
+            if (continente.equals(continentes[0])) {
                 continente = "all";
             } else {
                 continente = "region/"+continente.toLowerCase();
