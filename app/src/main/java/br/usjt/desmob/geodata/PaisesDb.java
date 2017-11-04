@@ -38,6 +38,7 @@ public class PaisesDb {
 
             db.insert(PaisesContract.PaisEntry.TABLE_NAME, null, values);
         }
+        db.close();
     }
 
     public Pais[] selecionaPaises(){
@@ -65,6 +66,7 @@ public class PaisesDb {
             paises.add(pais);
         }
         c.close();
+        db.close();
         if(paises.size()> 0) {
             return paises.toArray(new Pais[0]);
         } else {
