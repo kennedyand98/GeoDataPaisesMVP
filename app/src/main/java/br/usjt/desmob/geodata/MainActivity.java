@@ -62,7 +62,8 @@ public class MainActivity extends Activity {
                         }
                     }).start();
         } else {
-            Toast.makeText(this, "Rede inativa. Usando armazenamento local.",
+            Toast.makeText(this, getApplicationContext().getResources().
+                            getString(R.string.msg_rede),
                     Toast.LENGTH_SHORT).show();
             new CarregaPaisesDoBanco().execute("pais");
         }
@@ -72,7 +73,9 @@ public class MainActivity extends Activity {
         @Override
         public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
             continente = (String) parent.getItemAtPosition(position);
-            if (continente.equals("Todos")) {
+            String[] continentes = getApplicationContext().getResources().
+                    getStringArray(R.array.continentes);
+            if (continente.equals(continentes[0])) {
                 continente = "all";
             } else {
                 continente = "region/"+continente.toLowerCase();

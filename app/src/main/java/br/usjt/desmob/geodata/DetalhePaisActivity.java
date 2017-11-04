@@ -34,11 +34,18 @@ public class DetalhePaisActivity extends Activity {
         demonimo.setText(pais.getDemonimo());
 
         TextView area = (TextView)findViewById(R.id.txt_area);
-        area.setText(""+pais.getArea());
+        area.setText(String.format("%1$,d km\u00B2", pais.getArea()));
 
         TextView populacao = (TextView)findViewById(R.id.txt_populacao);
-        populacao.setText(""+pais.getPopulacao());
+        populacao.setText(String.format("%1$,d", pais.getPopulacao()));
 
+        TextView gini = (TextView)findViewById(R.id.txt_gini);
+        gini.setText(String.format("%.2f", pais.getGini()));
 
+        TextView latitude = (TextView)findViewById(R.id.txt_latitude);
+        latitude.setText(String.format("%.2f", pais.getLatitude()));
+
+        TextView longitude = (TextView)findViewById(R.id.txt_longitude);
+        longitude.setText(String.format("%.2f", pais.getLongitude()));
     }
 }
