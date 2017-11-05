@@ -1,4 +1,4 @@
-package br.usjt.desmob.geodata;
+package br.usjt.desmob.geodata.view;
 
 import android.app.Activity;
 import android.content.Context;
@@ -13,15 +13,22 @@ import android.widget.Toast;
 
 import java.io.IOException;
 
+import br.usjt.desmob.geodata.Contexto;
+import br.usjt.desmob.geodata.R;
+import br.usjt.desmob.geodata.model.entity.Pais;
+import br.usjt.desmob.geodata.model.entity.Regiao;
+import br.usjt.desmob.geodata.model.service.NetworkStatus;
+import br.usjt.desmob.geodata.model.service.PaisService;
+
 public class MainActivity extends Activity {
     Spinner spinnerContinente;
-    String continente = "all";
-    public static final String URL = "https://restcountries.eu/rest/v2/";
+    Regiao regiao = Regiao.all;
     public static final String PAISES = "br.usjt.desmob.geodata.paises";
     Pais[] paises;
     Intent intent;
     ProgressBar timer;
     Context contexto;
+    PaisService service;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,42 +36,45 @@ public class MainActivity extends Activity {
         setContentView(R.layout.activity_main);
         spinnerContinente = (Spinner) findViewById(R.id.spinnerContinente);
         spinnerContinente.setOnItemSelectedListener(new RegiaoSelecionada());
-        timer = (ProgressBar)findViewById(R.id.timer);
+        timer = (ProgressBar) findViewById(R.id.timer);
         timer.setVisibility(View.INVISIBLE);
-        contexto = this;
+        Contexto.setValue(this);
+        contexto = Contexto.getValue();
     }
 
     public void listarPaises(View view) {
         intent = new Intent(this, ListaPaisesActivity.class);
-        if(GeoDataNetwork.isConnected(this)) {
+        if (NetworkStatus.isConnected(this)) {
+            service = new PaisService(true);//online
             timer.setVisibility(View.VISIBLE);
             new Thread(
                     new Runnable() {
                         @Override
                         public void run() {
+
                             try {
-                                paises = GeoDataNetwork.buscarPaises(URL, continente);
-                                //insere no banco o que conseguiu
-                                PaisesDb db = new PaisesDb(contexto);
-                                db.inserePaises(paises);
-                                runOnUiThread(new Runnable() {
-                                                  @Override
-                                                  public void run() {
-                                                      intent.putExtra(PAISES, paises);
-                                                      startActivity(intent);
-                                                      timer.setVisibility(View.INVISIBLE);
-                                                  }
-                                              }
-                                );
+                                paises = service.buscarPaises(regiao);
                             } catch (IOException e) {
                                 e.printStackTrace();
                             }
+
+                            runOnUiThread(new Runnable() {
+                                              @Override
+                                              public void run() {
+                                                  intent.putExtra(PAISES, paises);
+                                                  startActivity(intent);
+                                                  timer.setVisibility(View.INVISIBLE);
+                                              }
+                                          }
+                            );
+
                         }
                     }).start();
         } else {
             Toast.makeText(this, getApplicationContext().getResources().
                             getString(R.string.msg_rede),
                     Toast.LENGTH_SHORT).show();
+            service = new PaisService(false);
             new CarregaPaisesDoBanco().execute("pais");
         }
     }
@@ -72,13 +82,23 @@ public class MainActivity extends Activity {
     private class RegiaoSelecionada implements AdapterView.OnItemSelectedListener {
         @Override
         public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-            continente = (String) parent.getItemAtPosition(position);
+            String continente = (String) parent.getItemAtPosition(position);
             String[] continentes = getApplicationContext().getResources().
                     getStringArray(R.array.continentes);
             if (continente.equals(continentes[0])) {
-                continente = "all";
-            } else {
-                continente = "region/"+continente.toLowerCase();
+                regiao = Regiao.all;
+            } else if (continente.equals(continentes[1])) {
+                regiao = Regiao.Africa;
+            } else if (continente.equals(continentes[2])) {
+                regiao = Regiao.Americas;
+            } else if (continente.equals(continentes[3])) {
+                regiao = Regiao.Asia;
+            } else if (continente.equals(continentes[4])) {
+                regiao = Regiao.Europe;
+            } else if (continente.equals(continentes[5])) {
+                regiao = Regiao.Oceania;
+            } else if (continente.equals(continentes[6])) {
+                regiao = Regiao.Polar;
             }
         }
 
@@ -88,16 +108,20 @@ public class MainActivity extends Activity {
         }
     }
 
-    private class CarregaPaisesDoBanco extends AsyncTask<String, Void, Pais[]>{
+    private class CarregaPaisesDoBanco extends AsyncTask<String, Void, Pais[]> {
 
         @Override
         protected Pais[] doInBackground(String... params) {
-            PaisesDb db = new PaisesDb(contexto);
-            Pais[] paises = db.selecionaPaises();
+            Pais[] paises = null;
+            try {
+                paises = service.buscarPaises(regiao);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
             return paises;
         }
 
-        public void onPostExecute(Pais[] paises){
+        public void onPostExecute(Pais[] paises) {
             intent.putExtra(PAISES, paises);
             startActivity(intent);
         }

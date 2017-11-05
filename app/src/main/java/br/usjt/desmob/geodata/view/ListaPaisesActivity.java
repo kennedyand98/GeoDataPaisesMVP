@@ -1,4 +1,4 @@
-package br.usjt.desmob.geodata;
+package br.usjt.desmob.geodata.view;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -6,6 +6,9 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+
+import br.usjt.desmob.geodata.model.entity.Pais;
+import br.usjt.desmob.geodata.R;
 
 public class ListaPaisesActivity extends Activity {
     public static final String PAIS = "br.usjt.desmob.geodata.pais";

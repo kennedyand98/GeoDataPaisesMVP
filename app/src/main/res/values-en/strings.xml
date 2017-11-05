@@ -9,6 +9,7 @@
         <item>Asia</item>
         <item>Europe</item>
         <item>Oceania</item>
+        <item>Polar</item>
     </string-array>
     <string name="lbl_codigo3">Alpha 3 Code: </string>
     <string name="lbl_capital">Capital: </string>

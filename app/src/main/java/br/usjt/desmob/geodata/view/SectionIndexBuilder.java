@@ -1,8 +1,10 @@
-package br.usjt.desmob.geodata;
+package br.usjt.desmob.geodata.view;
 
 import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.TreeSet;
+
+import br.usjt.desmob.geodata.model.entity.Pais;
 
 /**
  * Created by asbonato on 22/09/17.

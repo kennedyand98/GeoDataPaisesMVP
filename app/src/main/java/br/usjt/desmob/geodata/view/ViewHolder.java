@@ -1,4 +1,4 @@
-package br.usjt.desmob.geodata;
+package br.usjt.desmob.geodata.view;
 
 import android.widget.ImageView;
 import android.widget.TextView;

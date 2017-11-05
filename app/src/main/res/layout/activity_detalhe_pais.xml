@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:padding="16dp"
-    tools:context="br.usjt.desmob.geodata.DetalhePaisActivity">
+    tools:context="br.usjt.desmob.geodata.view.DetalhePaisActivity">
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -33,7 +33,7 @@
 
     <fragment
         android:id="@+id/detalhe_pais_fragment"
-        class="br.usjt.desmob.geodata.DetalhePaisFragment"
+        class="br.usjt.desmob.geodata.view.DetalhePaisFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:layout="@layout/fragment_detalhe_pais" />

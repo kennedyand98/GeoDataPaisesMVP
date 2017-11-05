@@ -1,12 +1,14 @@
-package br.usjt.desmob.geodata;
+package br.usjt.desmob.geodata.view;
 
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 
 import java.lang.reflect.Field;
 
+import br.usjt.desmob.geodata.R;
+
 /**
- * Created by asbonato on 22/09/17.
+ * Created by asbonato on 05/11/17.
  */
 
 public class Util {

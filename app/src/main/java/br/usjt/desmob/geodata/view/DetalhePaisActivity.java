@@ -1,10 +1,13 @@
-package br.usjt.desmob.geodata;
+package br.usjt.desmob.geodata.view;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import br.usjt.desmob.geodata.model.entity.Pais;
+import br.usjt.desmob.geodata.R;
 
 public class DetalhePaisActivity extends FragmentActivity {
 
@@ -16,7 +19,7 @@ public class DetalhePaisActivity extends FragmentActivity {
         Pais pais = (Pais)intent.getSerializableExtra(ListaPaisesActivity.PAIS);
 
         ImageView bandeira = (ImageView)findViewById(R.id.img_bandeira_pais);
-        bandeira.setImageDrawable(Util.getDrawable(this, pais.getCodigo3().toLowerCase()));
+        bandeira.setImageDrawable(br.usjt.desmob.geodata.view.Util.getDrawable(this, pais.getCodigo3().toLowerCase()));
 
         TextView nome = (TextView)findViewById(R.id.txt_nome_pais);
         nome.setText(pais.getNome());

@@ -4,11 +4,12 @@
     <string name="lblContinente">Región: </string>
     <string-array name="continentes">
         <item>Todos</item>
-        <item>Africa</item>
-        <item>Americas</item>
+        <item>África</item>
+        <item>Américas</item>
         <item>Asia</item>
-        <item>Europe</item>
-        <item>Oceania</item>
+        <item>Europa</item>
+        <item>Oceanía</item>
+        <item>Polar</item>
     </string-array>
     <string name="lbl_codigo3">Código Alfa 3: </string>
     <string name="lbl_capital">Capital: </string>

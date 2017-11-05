@@ -1,4 +1,4 @@
-package br.usjt.desmob.geodata;
+package br.usjt.desmob.geodata.view;
 
 import android.app.Activity;
 import android.content.Context;
@@ -12,6 +12,9 @@ import android.widget.SectionIndexer;
 import android.widget.TextView;
 
 import java.util.Hashtable;
+
+import br.usjt.desmob.geodata.R;
+import br.usjt.desmob.geodata.model.entity.Pais;
 
 import static br.usjt.desmob.geodata.R.drawable.bandeira;
 
@@ -72,7 +75,7 @@ public class PaisAdapter extends BaseAdapter implements SectionIndexer {
                         " %s",
                 paises[position].getRegiao(),
                 paises[position].getCapital()));
-        Drawable drawable = Util.getDrawable(activity, paises[position].getCodigo3().toLowerCase());
+        Drawable drawable = br.usjt.desmob.geodata.view.Util.getDrawable(activity, paises[position].getCodigo3().toLowerCase());
         if(drawable == null){
             drawable = activity.getDrawable(bandeira);
         }

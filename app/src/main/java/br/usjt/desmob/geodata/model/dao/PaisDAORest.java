@@ -1,7 +1,4 @@
-package br.usjt.desmob.geodata;
-
-import android.content.Context;
-import android.net.ConnectivityManager;
+package br.usjt.desmob.geodata.model.dao;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -10,6 +7,9 @@ import org.json.JSONObject;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import br.usjt.desmob.geodata.Contexto;
+import br.usjt.desmob.geodata.model.entity.Pais;
+import br.usjt.desmob.geodata.model.entity.Regiao;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
@@ -18,14 +18,23 @@ import okhttp3.Response;
  * Created by asbonato on 06/10/17.
  */
 
-public class GeoDataNetwork {
+public class PaisDAORest implements PaisDAO {
 
-    public static Pais[] buscarPaises(String url, String regiao) throws IOException {
+    public static final String URL = "https://restcountries.eu/rest/v2/";
+
+    @Override
+    public Pais[] buscarPaises(Regiao regiao) throws IOException {
         OkHttpClient client = new OkHttpClient();
         ArrayList<Pais> paises = new ArrayList<>();
+        String url;
+        if(regiao == Regiao.all) {
+            url = URL + regiao;
+        }else{
+            url = URL + "region/" + regiao;
+        }
 
         Request request = new Request.Builder()
-                .url(url+regiao)
+                .url(url)
                 .build();
 
         Response response = client.newCall(request).execute();
@@ -81,14 +90,10 @@ public class GeoDataNetwork {
             e.printStackTrace();
             throw new IOException(e);
         }
+        //salva os paises no cache (banco de dados)
+        PaisDAODb db = new PaisDAODb(Contexto.getValue());
+        db.salvarPaises(regiao, paises);
 
         return paises.toArray(new Pais[0]);
-    }
-
-    public static boolean isConnected(Context context){
-        ConnectivityManager connectivityManager = (ConnectivityManager)
-                context.getSystemService(Context.CONNECTIVITY_SERVICE);
-        return connectivityManager.getActiveNetworkInfo() != null &&
-                connectivityManager.getActiveNetworkInfo().isConnected();
     }
 }

@@ -1,4 +1,4 @@
-package br.usjt.desmob.geodata;
+package br.usjt.desmob.geodata.model.entity;
 
 import java.io.Serializable;
 import java.util.ArrayList;
