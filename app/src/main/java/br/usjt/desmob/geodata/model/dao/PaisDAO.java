@@ -6,7 +6,7 @@ import br.usjt.desmob.geodata.model.entity.Pais;
 import br.usjt.desmob.geodata.model.entity.Regiao;
 
 /**
- * Created by asbonato on 05/11/17.
+ * Created by KENNEDY on 02/05/2018.
  */
 
 public interface PaisDAO {

@@ -5,7 +5,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 /**
- * Created by asbonato on 16/10/17.
+ * Created by KENNEDY on 02/05/2018.
  */
 
 public class PaisDAODbHelper extends SQLiteOpenHelper {

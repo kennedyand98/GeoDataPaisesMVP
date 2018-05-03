@@ -11,7 +11,7 @@ import br.usjt.desmob.geodata.model.entity.Pais;
 import br.usjt.desmob.geodata.model.entity.Regiao;
 
 /**
- * Created by asbonato on 16/10/17.
+ * Created by KENNEDY on 02/05/2018.
  */
 
 public class PaisDAODb implements PaisDAO {
@@ -24,11 +24,6 @@ public class PaisDAODb implements PaisDAO {
     public void salvarPaises(Regiao regiao, ArrayList<Pais> paises){
         SQLiteDatabase db = dbHelper.getWritableDatabase();
 
-        /*
-         * melhorar o codigo verificando a regiao que se quer inserir
-         * e as regioes existentes na tabela antes de decidir o que
-         * deletar
-         */
 
         if(regiao == Regiao.all) {
             db.delete(PaisDAOContract.PaisEntry.TABLE_NAME, null, null);

@@ -3,7 +3,7 @@ package br.usjt.desmob.geodata;
 import android.content.Context;
 
 /**
- * Created by asbonato on 05/11/17.
+ * Created by KENNEDY on 02/05/2018.
  */
 
 public class Contexto {

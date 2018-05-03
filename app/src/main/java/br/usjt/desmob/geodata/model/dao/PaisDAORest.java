@@ -15,7 +15,7 @@ import okhttp3.Request;
 import okhttp3.Response;
 
 /**
- * Created by asbonato on 06/10/17.
+ * Created by KENNEDY on 02/05/2018.
  */
 
 public class PaisDAORest implements PaisDAO {
@@ -82,8 +82,6 @@ public class PaisDAORest implements PaisDAO {
                     pais.setLongitude(0);
                 }
 
-
-                //completar os campos em casa
                 paises.add(pais);
             }
         } catch (JSONException e) {

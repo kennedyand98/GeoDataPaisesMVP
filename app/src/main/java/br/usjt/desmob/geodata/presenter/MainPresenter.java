@@ -3,7 +3,7 @@ package br.usjt.desmob.geodata.presenter;
 import br.usjt.desmob.geodata.view.MainView;
 
 /**
- * Created by asbonato on 05/11/17.
+ * Created by KENNEDY on 05/11/17.
  */
 
 public class MainPresenter implements Presenter {
